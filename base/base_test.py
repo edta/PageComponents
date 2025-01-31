@@ -10,20 +10,10 @@ from base_page import Navigation
 class BaseTest:
 
     def setup_method(self):
-        self.default_user = self.browser_factory()
         self.menu = Navigation()
         self.credentials = Credentials()
-        self.my_info_page = MyInfoPage(self.default_user)
-        self.login_page = lambda driver=self.default_user: LoginPage(driver)
-        self.dashboard_page = DashboardPage(self.default_user)
+        self.my_info_page = MyInfoPage(self.driver)
+        self.login_page = lambda driver=self.driver: LoginPage(driver)
+        self.dashboard_page = DashboardPage(self.driver)
 
-    def browser_factory(self):
-        browser = os.environ['BROWSER']
-        if browser == 'chrome':
-            driver = webdriver.Chrome()
-        elif browser == 'firefox':
-            driver = webdriver.Firefox()
-        return driver
 
-    def teardown_method(self):
-        self.default_user.quit()
